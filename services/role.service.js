@@ -1,12 +1,11 @@
 const boom = require('@hapi/boom');
-const Role = require('../models/role.model');
+const { models } = require('../libs/sequelize');
 
 class roleService {
 
   async post(body) {
       try {
-       const newRole = Role.build(body);
-       await newRole.save();
+       const newRole = models.Role.create(body);
        return newRole;
     } catch (error) {
       throw boom.badRequest('bad request');
@@ -14,41 +13,32 @@ class roleService {
   }
 
   async get(body) {
-    return await Role.findAll();
+    const data = await models.Role.findAll({
+      include: [
+        {
+          association: 'users',
+          include: 'role'
+        }
+      ]
+    });
+    return data;
   }
 
   async getById(id) {
-    try {
-      var role = await Role.findOne({where: {id: id}})
-      console.log(role)
-    if(role == null) {
-      return boom.notFound('not found').output.payload;
-    }
-    /* if(role.isBlocked) {
-      throw boom.conflict('is blocked');
-    } */
-    return role;
-    } catch (error) {
-      throw boom.badRequest('bad request');
-    }
+      const role = await models.Role.findByPk(id);
+      if(!role) {
+        throw boom.notFound('role not found');
+      }
+      return role;
   }
 
   async update(id, body) {
-    try {
-      roleUpdated = await Role.update(
-    {
-      name: body.name
-    },
-    {
-      where: {
-        id: id,
-      },
-    }
-  );
-   return roleUpdated;
-    } catch (error) {
-      throw boom.badRequest('bad request');
-    }
+      const role = await this.getById(id);
+      if(!role) {
+        throw boom.notFound('role not found');
+      }
+      const data = await role.update(body);
+      return data;
   }
 
 }

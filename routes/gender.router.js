@@ -1,55 +1,25 @@
 const express = require('express');
+const validatorHandler = require('../middlewares/validatorHandler');
+const { createGenderDto, getGenderDto, updateGenderDto } = require('../dto/gender.dto');
+const router = express();
 
-const router = express.Router();
+const genderController = require('../controllers/gender.controller');
 
 //GET ALL - FILTER
-router.get('/', (req, res) => {
-  const { tittle, gender } = req.query;
-  if(tittle || gender) {
-    res.json({
-      tittle,
-      gender
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.get('/', genderController.getGenders);
 
 //GET BY ID
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  if(tittle || gender) {
-    res.json({
-      id
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.get('/:id', validatorHandler(getGenderDto, 'params'), genderController.getGender);
 
 //POST
-router.post('/', (req, res) => {
-  const body = req.params.body;
-  if(body) {
-    res.json({
-      body
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.post('/',
+validatorHandler(createGenderDto, 'body'), genderController.postGender);
 
 //PUT
-router.put('/:id', (req, res) => {
-  const body = req.params.body;
-  if(body) {
-    res.json({
-      body
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.put('/:id',
+  validatorHandler(getGenderDto, 'params'),
+  validatorHandler(updateGenderDto, 'body'),
+  genderController.updateGender
+);
 
 module.exports = router;
-

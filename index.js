@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 routerApi(app);
 
-const sequelize = require('./libs/mysql');
+const database = require('./libs/mysql');
 
 app.use(logErrors);
 app.use(boomErrorHandler);

@@ -1,35 +1,18 @@
-const config = require("../config/config");
-const { Sequelize } = require('sequelize');
+const mysql = require('mysql2');
+const { config } = require("../config/config");
 
-const sequelize = new Sequelize(config.database, config.user, config.password,{
-    host: config.host,
-    dialect: 'mysql',
-    dialectOptions: {
-        connectTimeout: 60000
-    },
-    define: {
-        freezeTableName: true,
-        timestamps:false
-    },
-    pool:{
-        max: 2,
-        min: 0,
-        acquire: 20000,
-        idle: 3000,
-        evict: 1500,
-    },
-    retry: {
-        max: 5,
-        backoffBase: 1000,
-        Default: 100,
-        Exponent: 1.5,
-        Default: 1.1
-    }
-  });
+const dbConnection = mysql.createConnection({
+  host: encodeURIComponent(config.host),
+  user: encodeURIComponent(config.user),
+  password: encodeURIComponent(config.password)
+})
 
-const getConnection = ()=>
-{
-    return connection;
-}
+dbConnection.connect((err) => {
+  if(err) {
+    console.log('error connecting');
+  } else {
+    console.log('connection success');
+  }
+})
 
-module.exports = sequelize
+module.exports = dbConnection;

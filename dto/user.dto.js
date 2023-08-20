@@ -5,23 +5,27 @@ const username = Joi.string().min(3).max(50);
 const password = Joi.string().min(3).max(255);
 const status = Joi.number();
 const dateRegister = Joi.date();
-const fistName = Joi.string().min(3).max(60);
+const firstName = Joi.string().min(3).max(60);
 const lastName = Joi.string().min(3).max(80);
-const role = Joi.number().integer();
+const roleName = Joi.string();
+const roleId = Joi.number();
+
 
 const createUserDto = Joi.object({
   username: username.required(),
   password: password.required(),
-  role: role.required(),
-  fistName: fistName.required(),
+  roleName: roleName.required(),
+  roleId: roleId.required(),
+  firstName: firstName.required(),
   lastName: lastName.required(),
 });
 
 const updateUserDto = Joi.object({
   username: username,
   password: password,
-  role: role,
-  fistName: fistName,
+  roleName: roleName,
+  roleId,
+  firstName: firstName,
   lastName: lastName
 });
 

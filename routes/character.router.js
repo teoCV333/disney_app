@@ -1,55 +1,30 @@
 const express = require('express');
+const validatorHandler = require('../middlewares/validatorHandler');
+const { createCharacterDto, getCharacterDto, updateCharacterDto } = require('../dto/character.dto');
+const { createCharacterMovieDto, getCharacterMovieDto, updateCharacterMovieDto } = require('../dto/character-movie.dto');
+const router = express();
 
-const router = express.Router();
+const characterController = require('../controllers/character.controller');
 
 //GET ALL - FILTER
-router.get('/', (req, res) => {
-  const { tittle, gender } = req.query;
-  if(tittle || gender) {
-    res.json({
-      tittle,
-      gender
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.get('/', characterController.getCharacters);
 
 //GET BY ID
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  if(tittle || gender) {
-    res.json({
-      id
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.get('/:id', validatorHandler(getCharacterDto, 'params'), characterController.getCharacter);
 
 //POST
-router.post('/', (req, res) => {
-  const body = req.params.body;
-  if(body) {
-    res.json({
-      body
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.post('/',
+validatorHandler(createCharacterDto, 'body'), characterController.postCharacter);
+
+//ADD
+router.post('/add-char',
+validatorHandler(createCharacterMovieDto, 'body'), characterController.addCharacter);
 
 //PUT
-router.put('/:id', (req, res) => {
-  const body = req.params.body;
-  if(body) {
-    res.json({
-      body
-    });
-  } else {
-    res.send('no params');
-  }
-});
+router.put('/:id',
+  validatorHandler(getCharacterDto, 'params'),
+  validatorHandler(updateCharacterDto, 'body'),
+  characterController.updateCharacter
+);
 
 module.exports = router;
-

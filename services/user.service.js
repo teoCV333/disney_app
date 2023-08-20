@@ -1,12 +1,13 @@
 const boom = require('@hapi/boom');
-const User = require('../models/user.model');
+const User = require('../db/models/user.model');
+
+const { models } = require('./../libs/sequelize');
 
 class userService {
 
   async post(body) {
       try {
-       const newUser = User.build(body);
-       await newUser.save();
+       const newUser = models.User.create(body);
        return newUser;
     } catch (error) {
       throw boom.badRequest('bad request');
@@ -14,19 +15,14 @@ class userService {
   }
 
   async get(body) {
-    return await User.findAll();
+    return await models.User.findAll();
   }
 
   async getById(id) {
     try {
-      var user = await User.findOne({where: {id: id}})
-      console.log(user)
-    if(user == null) {
-      return boom.notFound('not found').output.payload;
-    }
-    /* if(role.isBlocked) {
-      throw boom.conflict('is blocked');
-    } */
+      const user = await models.User.findByPk(id, {
+        include: 'role'
+      })
     return user;
     } catch (error) {
       throw boom.badRequest('bad request');
