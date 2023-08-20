@@ -43,20 +43,22 @@ const validatorHandler = require('../middlewares/validatorHandler');
 const { createUserDto, getUserDto, updateUserDto } = require('../dto/user.dto');
 const router = express();
 
+const passport = require('passport');
+
 const userController = require('../controllers/user.controller');
 
 //GET ALL - FILTER
-router.get('/', userController.getUsers);
+router.get('/', passport.authenticate('jwt', {session: false}), userController.getUsers);
 
 //GET BY ID
-router.get('/:id', validatorHandler(getUserDto, 'params'), userController.getUser);
-
-//POST
-router.post('/',
-validatorHandler(createUserDto, 'body'), userController.postUser);
+router.get('/:id',
+  passport.authenticate('jwt', {session: false}),
+  validatorHandler(getUserDto, 'params'),
+  userController.getUser);
 
 //PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getUserDto, 'params'),
   validatorHandler(updateUserDto, 'body'),
   userController.updateUser

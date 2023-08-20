@@ -36,23 +36,32 @@ const { createCharacterMovieDto, getCharacterMovieDto, updateCharacterMovieDto }
 const router = express();
 
 const characterController = require('../controllers/character.controller');
+const passport = require('passport');
 
 //GET ALL - FILTER
-router.get('/', validatorHandler(queryCharacterDto, 'query'), characterController.getCharacters);
+router.get('/', passport.authenticate('jwt', {session: false}),
+validatorHandler(queryCharacterDto, 'query'),
+characterController.getCharacters);
 
 //GET BY ID
-router.get('/:id', validatorHandler(getCharacterDto, 'params'), characterController.getCharacter);
+router.get('/:id',
+passport.authenticate('jwt', {session: false}),
+validatorHandler(getCharacterDto, 'params'),
+characterController.getCharacter);
 
 //POST
 router.post('/',
+passport.authenticate('jwt', {session: false}),
 validatorHandler(createCharacterDto, 'body'), characterController.postCharacter);
 
 //ADD
 router.post('/add-char',
+passport.authenticate('jwt', {session: false}),
 validatorHandler(createCharacterMovieDto, 'body'), characterController.addCharacter);
 
 //PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getCharacterDto, 'params'),
   validatorHandler(updateCharacterDto, 'body'),
   characterController.updateCharacter
@@ -60,6 +69,7 @@ router.put('/:id',
 
 //DELETE
 router.delete('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getCharacterDto, 'params'),
   characterController.deleteCharacter
 );

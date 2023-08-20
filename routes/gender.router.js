@@ -27,21 +27,25 @@ const express = require('express');
 const validatorHandler = require('../middlewares/validatorHandler');
 const { createGenderDto, getGenderDto, updateGenderDto } = require('../dto/gender.dto');
 const router = express();
+const passport = require('passport');
 
 const genderController = require('../controllers/gender.controller');
 
 //GET ALL - FILTER
-router.get('/', genderController.getGenders);
+router.get('/', passport.authenticate('jwt', {session: false}), genderController.getGenders);
 
 //GET BY ID
-router.get('/:id', validatorHandler(getGenderDto, 'params'), genderController.getGender);
+router.get('/:id', passport.authenticate('jwt', {session: false}), validatorHandler(getGenderDto, 'params'), genderController.getGender);
 
 //POST
 router.post('/',
-validatorHandler(createGenderDto, 'body'), genderController.postGender);
+passport.authenticate('jwt', {session: false}),
+validatorHandler(createGenderDto, 'body'),
+genderController.postGender);
 
 //PUT
 router.put('/:id',
+  passport.authenticate('jwt', {session: false}),
   validatorHandler(getGenderDto, 'params'),
   validatorHandler(updateGenderDto, 'body'),
   genderController.updateGender

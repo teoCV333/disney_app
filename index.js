@@ -14,6 +14,8 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
+require('./utils/auth');
+
 
 app.get('/', (req, res) => {
   res.send('Hello world');

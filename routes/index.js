@@ -5,6 +5,7 @@ const movieRouter = require('./movie.router');
 const genderRouter = require('./gender.router');
 const characterRouter = require('./character.router');
 const userRouter = require('./user.router');
+const authRouter = require('./auth.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -14,6 +15,7 @@ function routerApi(app) {
   router.use('/gender', genderRouter);
   router.use('/character', characterRouter);
   router.use('/user', userRouter);
+  router.use('/auth', authRouter);
 }
 
 module.exports = routerApi;
