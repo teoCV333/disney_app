@@ -21,6 +21,8 @@
  *           type: number
  *         weight:
  *           type: number
+ *         status:
+ *           type: number
  *       example:
  *         image: test,
  *         name: test,
@@ -56,10 +58,19 @@
  *           description: The auto-generated id of the character
  *         body:
  *           type: number
- *           description: The auto-generated id of the character
+ *           description: The auto-generated id of the character,
+ *           properties:
+ *              - status:
+ *                   type: number
+ *              - name:
+ *                   type: string
+ *              - age:
+ *                   type: number
  *       example:
+ *         path: /character/1,
  *         name: test,
  *         age: 22,
+ *         status: 1,
  */
 
 

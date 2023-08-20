@@ -13,11 +13,14 @@
  *           type: text
  *         tittle:
  *           type: string
+ *         status:
+ *           type: number
  *
  *       example:
 *          image: test,
 *          tittle: test,
 *          score: 10,
+*          status: 1,
  */
 
 const express = require('express');
