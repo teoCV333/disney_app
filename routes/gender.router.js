@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     Gender:
+ *     POST /gender:
  *       type: object
  *       required:
  *         - name

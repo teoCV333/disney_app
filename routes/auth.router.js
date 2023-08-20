@@ -1,3 +1,55 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     POST /auth/register:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *         - firstName
+ *         - lastName
+ *         - roleName
+ *         - roleId
+ *       properties:
+ *         id:
+ *           type: number
+ *         username:
+ *           type: string
+ *         password:
+ *           type: string
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         roleName:
+ *           type: string
+ *         roleId:
+ *           type: number
+ *       example:
+*          username: test,
+*          password: test,
+*          firstName: test,
+*          lastName: test,
+*          roleName: user,
+*          roleId: 2,
+*     POST /  auth/login:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *
+ *       properties:
+ *         username:
+ *           type: string
+ *         password:
+ *           type: string
+ *       example:
+*          username: test,
+*          password: test,
+*/
+
+
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');

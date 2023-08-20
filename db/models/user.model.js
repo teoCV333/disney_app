@@ -35,6 +35,11 @@ const UserModel = {
     type: DataTypes.STRING(80),
     allowNull: false
   },
+  email: {
+    type: DataTypes.STRING(200),
+    allowNull: false,
+    unique: true
+  },
   roleName: {
     allowNull: false,
     type: DataTypes.STRING,

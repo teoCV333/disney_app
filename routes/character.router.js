@@ -2,7 +2,8 @@
  * @swagger
  * components:
  *   schemas:
- *     Character:
+
+ *     POST /character:
  *       type: object
  *       required:
  *         - name
@@ -21,11 +22,44 @@
  *         weight:
  *           type: number
  *       example:
-*          image: test,
-*          name: test,
-*          age: 10,
-*          weight: 2,
-*          history: test
+ *         image: test,
+ *         name: test,
+ *         age: 10,
+ *         weight: 2,
+ *         history: test,
+ *     GET /character/:id:
+ *       type: param
+ *       required:
+ *         - id
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: The auto-generated id of the character
+ *         image:
+ *           type: text
+ *           description: The image of the character
+ *         name:
+ *           type: string
+ *           description: The character name
+ *         age:
+ *           type: number
+ *         weight:
+ *           type: number
+ *       example:
+ *         /character/1
+ *
+ *     PUT /character/:id:
+ *       type: object
+ *       required:
+ *         id:
+ *           type: number
+ *           description: The auto-generated id of the character
+ *         body:
+ *           type: number
+ *           description: The auto-generated id of the character
+ *       example:
+ *         name: test,
+ *         age: 22,
  */
 
 

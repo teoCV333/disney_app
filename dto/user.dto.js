@@ -9,6 +9,7 @@ const firstName = Joi.string().min(3).max(60);
 const lastName = Joi.string().min(3).max(80);
 const roleName = Joi.string();
 const roleId = Joi.number();
+const email = Joi.string().email();
 
 
 const createUserDto = Joi.object({
@@ -18,6 +19,7 @@ const createUserDto = Joi.object({
   roleId: roleId.required(),
   firstName: firstName.required(),
   lastName: lastName.required(),
+  email: email.required(),
 });
 
 const updateUserDto = Joi.object({
@@ -26,7 +28,8 @@ const updateUserDto = Joi.object({
   roleName: roleName,
   roleId,
   firstName: firstName,
-  lastName: lastName
+  lastName: lastName,
+  email: email
 });
 
 const getUserDto = Joi.object({
