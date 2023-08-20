@@ -1,3 +1,23 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Role:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: The auto-generated id of the character
+ *         name:
+ *           type: string
+ *           description: The character name
+ *
+ *       example:
+ *          name: test,
+ */
+
 const express = require('express');
 const validatorHandler = require('../middlewares/validatorHandler');
 const { createRoleDto, getRoleDto, updateRoleDto } = require('../dto/role.dto');

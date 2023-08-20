@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Gender:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: The auto-generated id of the character
+ *         image:
+ *           type: text
+ *           description: The image of the character
+ *         name:
+ *           type: string
+ *           description: The character name
+ *
+ *       example:
+*          image: test,
+*          name: test,
+*
+ */
+
 const express = require('express');
 const validatorHandler = require('../middlewares/validatorHandler');
 const { createGenderDto, getGenderDto, updateGenderDto } = require('../dto/gender.dto');

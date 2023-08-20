@@ -16,9 +16,10 @@ const CharacterMovieModel = {
       type: DataTypes.INTEGER,
       unique: false,
       references: {
-      model: MOVIE_TABLE,
-      key: 'id'
-    }
+        model: MOVIE_TABLE,
+        key: 'id'
+      },
+
   },
   characterId: {
     field: 'character_id',
@@ -26,14 +27,23 @@ const CharacterMovieModel = {
       type: DataTypes.INTEGER,
       unique: false,
       references: {
-      model: CHARACTER_TABLE,
-      key: 'id'
-    }
+        model: CHARACTER_TABLE,
+        key: 'id'
+      },
+
   }
 };
 
 class CharacterMovie extends Model {
   static associate(models) {
+      this.belongsTo(models.Character, {
+        as: 'character',
+        foreignKey: 'id'
+      });
+      this.belongsTo(models.Movie, {
+        as: 'movie',
+        foreignKey: 'id'
+      })
     }
 
   static config(sequelize) {

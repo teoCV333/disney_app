@@ -16,9 +16,9 @@ const MovieGenderModel = {
       type: DataTypes.INTEGER,
       unique: false,
       references: {
-      model: MOVIE_TABLE,
-      key: 'id'
-    }
+        model: MOVIE_TABLE,
+        key: 'id'
+      }
   },
   genderId: {
       field: 'gender_id',
@@ -26,16 +26,22 @@ const MovieGenderModel = {
       type: DataTypes.INTEGER,
       unique: false,
       references: {
-      model: GENDER_TABLE,
-      key: 'id'
-    }
+        model: GENDER_TABLE,
+        key: 'id'
+      }
   }
 };
 
 class MovieGender extends Model {
   static associate(models) {
-    this.belongsTo(models.Movie, {as: 'movie'});
-    this.belongsTo(models.Gender, {as: 'gender'});
+    this.belongsTo(models.Movie, {
+      as: 'movie',
+      foreignKey: 'id'
+    });
+    this.belongsTo(models.Gender, {
+      as: 'gender',
+      foreignKey: 'id'
+    });
   }
 
   static config(sequelize) {

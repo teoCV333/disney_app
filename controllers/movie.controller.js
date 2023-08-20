@@ -41,7 +41,7 @@ const addMovie = async (req, res, next) => {
 
 const getMovies = async (req, res, next) => {
   try {
-    const body = req.query.params;
+    const body = req.query;
     const movies = await service.get(body);
     res.send(movies);
   } catch (error) {

@@ -6,6 +6,7 @@ const name = Joi.string();
 const age = Joi.number();
 const weight = Joi.number();
 const history = Joi.string();
+const movieId = Joi.number();
 
 const createCharacterDto = Joi.object({
   image: image,
@@ -27,4 +28,10 @@ const getCharacterDto = Joi.object({
   id: id.required()
 });
 
-module.exports = { getCharacterDto, updateCharacterDto, createCharacterDto };
+const queryCharacterDto = Joi.object({
+  name,
+  age,
+  movieId
+});
+
+module.exports = { getCharacterDto, updateCharacterDto, createCharacterDto, queryCharacterDto };

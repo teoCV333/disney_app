@@ -4,6 +4,7 @@ const id = Joi.number().integer();
 const image = Joi.string();
 const tittle = Joi.string();
 const score = Joi.number();
+const genderId = Joi.number();
 
 const createMovieDto = Joi.object({
   tittle: tittle.required(),
@@ -21,4 +22,9 @@ const getMovieDto = Joi.object({
   id: id.required()
 });
 
-module.exports = { getMovieDto, updateMovieDto, createMovieDto };
+const queryMovieDto = Joi.object({
+  tittle,
+  genderId
+});
+
+module.exports = { getMovieDto, updateMovieDto, createMovieDto, queryMovieDto };

@@ -12,8 +12,20 @@ class movieService {
     }
   }
 
-  async get(body) {
-    const data = await models.Movie.findAll();
+  async get(query) {
+     const { tittle, genderId } = query;
+      const options = {
+      include: ['genders', 'characters'],
+      where: {},
+      order: [['id', 'DESC']]
+    }
+    if(tittle) {
+      options.where.tittle = tittle;
+    }
+    /* if(genderId) {
+      options.where.genderId = genderId;
+    } */
+    const data = await models.Movie.findAll(options);
     return data;
   }
 

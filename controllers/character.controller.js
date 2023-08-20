@@ -41,7 +41,8 @@ const addCharacter = async (req, res, next) => {
 
 const getCharacters = async (req, res, next) => {
   try {
-    const body = req.query.params;
+    const body = req.query;
+    console.log(body)
     const characters = await characterService.get(body);
     res.send(characters);
   } catch (error) {
@@ -80,10 +81,29 @@ const updateCharacter = async (req, res, next) => {
   }
 }
 
+const deleteCharacter = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if(id) {
+      const characterDeleted = await characterService.delete(id);
+      res.json({
+      message: 'deleted',
+      data: characterDeleted
+    });
+    } else {
+      res.send('no params');
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
+
 module.exports = {
   getCharacter,
   getCharacters,
   postCharacter,
   updateCharacter,
-  addCharacter
+  addCharacter,
+  deleteCharacter
 }

@@ -12,8 +12,22 @@ class characterService {
     }
   }
 
-  async get(body) {
-    const data = await models.Character.findAll();
+  async get(query) {
+    const { name, age, movieId  } = query;
+    const options = {
+      include: ['movies'],
+      where: {}
+    }
+    if( name ) {
+      options.where.name = name;
+    }
+    if( age ) {
+      options.where.age = age;
+    }
+    /* if( movieId ) {
+      options.where.movieId = movieId;
+    } */
+    const data = await models.Character.findAll(options);
     return data;
   }
 
@@ -38,6 +52,27 @@ class characterService {
       }
       const data = await character.update(body);
       return data;
+  }
+
+  async delete(id) {
+      const character = await this.getById(id);
+      if(!character) {
+        throw boom.notFound('character not found');
+      }
+      await character.destroy({
+        where: {
+          id: id
+        }
+      });
+      return { id };
+  }
+
+  async restore(id) {
+    await Post.restore({
+      where: {
+        id: id
+      }
+    })
   }
 
 }
