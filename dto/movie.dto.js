@@ -5,6 +5,7 @@ const image = Joi.string();
 const tittle = Joi.string();
 const score = Joi.number();
 const genderId = Joi.number();
+const status = Joi.number();
 
 const createMovieDto = Joi.object({
   tittle: tittle.required(),
@@ -15,7 +16,8 @@ const createMovieDto = Joi.object({
 const updateMovieDto = Joi.object({
   tittle: tittle,
   image: image,
-  score: score
+  score: score,
+  status: status
 });
 
 const getMovieDto = Joi.object({

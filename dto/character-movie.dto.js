@@ -3,6 +3,7 @@ const Joi = require('joi');
 const id = Joi.number().integer();
 const characterId = Joi.number().integer();
 const movieId = Joi.number().integer();
+const status = Joi.number();
 
 
 const createCharacterMovieDto = Joi.object({
@@ -12,7 +13,8 @@ const createCharacterMovieDto = Joi.object({
 
 const updateCharacterMovieDto = Joi.object({
    movieId: movieId,
-   characterId: characterId
+   characterId: characterId,
+   status: status
 });
 
 const getCharacterMovieDto = Joi.object({

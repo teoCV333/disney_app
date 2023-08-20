@@ -29,6 +29,10 @@ const MovieGenderModel = {
         model: GENDER_TABLE,
         key: 'id'
       }
+  },
+  status: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
   }
 };
 

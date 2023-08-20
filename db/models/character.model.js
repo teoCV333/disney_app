@@ -27,6 +27,10 @@ const CharacterModel = {
   history: {
     type: DataTypes.TEXT,
     allowNull: true
+  },
+  status: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
   }
 };
 
@@ -34,7 +38,7 @@ class Character extends Model {
   static associate(models) {
     this.hasMany(models.Movie, {
       as: 'movies',
-      foreignKey: 'id',
+      foreignKey: 'id'
     })
   }
 

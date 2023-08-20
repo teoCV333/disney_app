@@ -7,6 +7,7 @@ const age = Joi.number();
 const weight = Joi.number();
 const history = Joi.string();
 const movieId = Joi.number();
+const status = Joi.number();
 
 const createCharacterDto = Joi.object({
   image: image,
@@ -21,7 +22,8 @@ const updateCharacterDto = Joi.object({
   name: name,
   age: age,
   weight: weight,
-  history: history
+  history: history,
+  status: status
 });
 
 const getCharacterDto = Joi.object({

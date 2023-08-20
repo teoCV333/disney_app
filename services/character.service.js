@@ -1,22 +1,28 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+const { Movie } = require('../db/models/movie.model');
 
 class characterService {
 
   async post(body) {
-      try {
-       const newCharacter = models.Character.create(body);
-       return newCharacter;
-    } catch (error) {
-      throw boom.badRequest('bad request');
-    }
+    const { name } = body;
+    const characterExist = models.Character.findOne({where: {name: name}}).catch((err) => {
+        throw boom.badRequest('bad request', err);
+      })
+      console.log('char',characterExists)
+      const newCharacter = models.Character.create(body);
+      return newCharacter;
   }
 
   async get(query) {
     const { name, age, movieId  } = query;
     const options = {
-      include: ['movies'],
-      where: {}
+      include: [{
+        model: Movie,
+        association: 'movies',
+        where: { status: 1 }
+      }],
+
     }
     if( name ) {
       options.where.name = name;
@@ -24,6 +30,7 @@ class characterService {
     if( age ) {
       options.where.age = age;
     }
+    options.where.status = 1;
     /* if( movieId ) {
       options.where.movieId = movieId;
     } */
@@ -36,6 +43,9 @@ class characterService {
       include: [
         {
           association: 'movies',
+          model: Movie,
+          required: false,
+          where: { status: 1 },
           include: ['genders']
         }]
     });

@@ -25,6 +25,10 @@ const MovieModel = {
   score: {
     type: DataTypes.INTEGER,
     allowNull: true
+  },
+  status: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
   }
 };
 
@@ -36,7 +40,7 @@ class Movie extends Model {
     });
     this.hasMany(models.Character, {
       as: 'characters',
-      foreignKey: 'id',
+      foreignKey: 'id'
     });
   }
 

@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+const { Movie } = require('../db/models/movie.model');
 
 class genderService {
 
@@ -19,7 +20,14 @@ class genderService {
 
   async getById(id) {
       const gender = await models.Gender.findByPk(id, {
-      include: 'movies'
+      include: [
+        {
+          model: Movie,
+          where: { status: 1 },
+          association: 'movies',
+          required: false,
+        }
+      ]
       });
       if(!gender) {
         throw boom.notFound('gender not found');

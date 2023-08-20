@@ -3,6 +3,7 @@ const Joi = require('joi');
 const id = Joi.number().integer();
 const movieId = Joi.number().integer();
 const genderId = Joi.number().integer();
+const status = Joi.number();
 
 
 const createMovieGenderDto = Joi.object({
@@ -12,7 +13,8 @@ const createMovieGenderDto = Joi.object({
 
 const updateMovieGenderDto = Joi.object({
    movieId: movieId,
-   genderId: genderId
+   genderId: genderId,
+   status: status
 });
 
 const getMovieGenderDto = Joi.object({

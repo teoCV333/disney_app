@@ -30,7 +30,10 @@ const CharacterMovieModel = {
         model: CHARACTER_TABLE,
         key: 'id'
       },
-
+  },
+  status: {
+    type: DataTypes.TINYINT,
+    allowNull: false,
   }
 };
 
@@ -42,7 +45,7 @@ class CharacterMovie extends Model {
       });
       this.belongsTo(models.Movie, {
         as: 'movie',
-        foreignKey: 'id'
+        foreignKey: 'id',
       })
     }
 
